@@ -1,0 +1,40 @@
+@import './../../../styles/mixins.scss';
+@import './../../../styles/colors.scss';
+
+.container{
+@include flex(center, center, column);
+margin: 20px;
+
+.textarea{
+    border: 2px solid $color-orange;
+    border-radius: 5px;
+    background-color: $color-light-white;
+    min-width: 250px;
+    min-height: 100px;
+    margin: 10px;
+    padding: 5px;
+    color: $color-dark-orange;
+    font-weight: 500;
+}
+
+.button{
+    border: 2px solid $color-orange;
+    background-color: $color-light-white;
+    border-radius: 5px;
+    margin: 20px;
+    padding: 5px;
+    color: $color-dark-orange;
+    font-weight: 500;
+
+    &:hover{
+        cursor: pointer;
+        background-color: $color-orange;
+    }
+
+    &:disabled{
+        background-color: $color-light-blue;
+        cursor: not-allowed;
+    }
+}
+
+}

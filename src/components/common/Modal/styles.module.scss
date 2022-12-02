@@ -1,0 +1,25 @@
+@import './../../../styles/mixins.scss';
+@import './../../../styles/colors.scss';
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.589);
+    @include flex(flex-start, center, column);
+
+    .buttonContainer{
+        width: 90%;
+        @include flex(flex-end, flex-start, row);
+    }
+
+    .content{
+        margin-top: 30px;
+        min-width: 200px;
+        min-height: 200px;
+        background-color: $color-light-white;
+        border-radius: 5px;
+    }
+}
