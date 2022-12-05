@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { findTags } from '../../../helpers/findTags';
 
 import styles from './styles.module.scss';
 
@@ -6,9 +8,9 @@ type Props = {
   id?: string;
   type: 'add' | 'change';
   changedNote?: string;
-  addNode?: (note: string) => void;
+  addNode?: (note: string, tags: string[]) => void;
   closeModal: () => void;
-  changeNote?: (id: string, note: string) => void;
+  changeNote?: (id: string, note: string, tags: string[]) => void;
 };
 
 const AddNote = ({
@@ -20,6 +22,13 @@ const AddNote = ({
   changeNote,
 }: Props): React.ReactElement => {
   const [note, setNote] = useState(changedNote || '');
+  const [tags, setTags] = useState<string[]>([]);
+
+  useEffect(() => {
+    const notesTags = findTags(note);
+
+    setTags(notesTags);
+  }, [note]);
 
   const onChangeHandler = (e: any): void => {
     setNote(e.target.value);
@@ -27,11 +36,11 @@ const AddNote = ({
 
   const onButtonClickHandler = (): void => {
     if (addNode) {
-      addNode(note);
+      addNode(note, tags);
     }
 
     if (changeNote && id) {
-      changeNote(id, note);
+      changeNote(id, note, tags);
     }
     closeModal();
   };
@@ -44,6 +53,14 @@ const AddNote = ({
         onChange={e => onChangeHandler(e)}
         placeholder="Enter your note..."
       />
+      <div>
+        {tags.map(tag => (
+          <span key={tag} className={styles.tag}>
+            {tag}
+          </span>
+        ))}
+      </div>
+
       <button
         type="submit"
         className={styles.button}

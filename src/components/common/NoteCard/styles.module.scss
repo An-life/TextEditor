@@ -29,4 +29,15 @@
         color: $color-dark-orange;
         font-weight: 600;
     }
+
+    .tagButton{
+        background: none;
+        border: none;
+        color: $color-dark-orange;
+
+        &:hover{
+            cursor: pointer;
+            color: $color-orange;
+        }
+    }
 }

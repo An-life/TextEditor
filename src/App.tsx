@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { v1 } from 'uuid';
 
@@ -18,13 +18,23 @@ export interface INote {
 const App = (): React.ReactElement => {
   const [modalIsOpened, setModalIsOpened] = useState(false);
   const [notes, setNotes] = useState<INote[]>([]);
+  const [tagFilter, setTagFilter] = useState<string>('all');
+  const [filteredNotes, setFilteredNotes] = useState<INote[]>(notes);
+
+  useEffect(() => {
+    if (tagFilter === 'all') {
+      setFilteredNotes(notes);
+    } else {
+      setFilteredNotes(notes.filter(note => note.tags.find(tag => tag === tagFilter)));
+    }
+  }, [tagFilter, notes]);
 
   const openModalHandler = (): void => setModalIsOpened(true);
 
   const closeModalHandler = (): void => setModalIsOpened(false);
 
-  const addNoteHandler = (note: string): void =>
-    setNotes([{ id: v1(), note, tags: [] }, ...notes]);
+  const addNoteHandler = (note: string, tags: string[]): void =>
+    setNotes([{ id: v1(), note, tags }, ...notes]);
 
   const deleteNoteHandler = (id: string): void => {
     const filteredNotes = notes.filter(note => note.id !== id);
@@ -32,12 +42,13 @@ const App = (): React.ReactElement => {
     setNotes(filteredNotes);
   };
 
-  const changeNoteHandler = (id: string, note: string): void => {
+  const changeNoteHandler = (id: string, note: string, tags: string[]): void => {
     const filteredNotes = notes?.filter(note => note.id !== id);
     const changedNote = notes?.find(note => note.id === id);
 
     if (changedNote) {
       changedNote.note = note;
+      changedNote.tags = tags;
 
       setNotes([changedNote, ...filteredNotes]);
     }
@@ -49,8 +60,18 @@ const App = (): React.ReactElement => {
         <IconButton onClick={openModalHandler}>
           <AddIcon />
         </IconButton>
+        <div>
+          <button
+            type="button"
+            onClick={() => setTagFilter('all')}
+            className={styles.allButton}
+          >
+            View all notes
+          </button>
+        </div>
+        <h2 className={styles.filter}>Filter: {tagFilter}</h2>
         <div className={styles.notes}>
-          {notes.map(({ id, note, tags }) => (
+          {filteredNotes.map(({ id, note, tags }) => (
             <NoteCard
               key={id}
               id={id}
@@ -60,6 +81,7 @@ const App = (): React.ReactElement => {
               deleteNote={() => {
                 deleteNoteHandler(id);
               }}
+              setTagFilter={setTagFilter}
             />
           ))}
         </div>

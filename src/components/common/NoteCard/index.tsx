@@ -11,7 +11,8 @@ import styles from './styles.module.scss';
 
 type Props = {
   deleteNote: () => void;
-  changeNote: (id: string, note: string) => void;
+  changeNote: (id: string, note: string, tags: string[]) => void;
+  setTagFilter: (tag: string) => void;
 } & INote;
 
 const NoteCard = ({
@@ -20,6 +21,7 @@ const NoteCard = ({
   tags,
   deleteNote,
   changeNote,
+  setTagFilter,
 }: Props): React.ReactElement => {
   const [modalIsOpened, setModalIsOpened] = useState(false);
   const openModalHandler = (): void => setModalIsOpened(true);
@@ -38,7 +40,14 @@ const NoteCard = ({
       <div className={styles.note}>{note}</div>
       <div>
         {tags.map(tag => (
-          <span key={id}>{tag}</span>
+          <button
+            type="button"
+            key={id}
+            onClick={() => setTagFilter(tag)}
+            className={styles.tagButton}
+          >
+            {tag}
+          </button>
         ))}
       </div>
       {modalIsOpened && (
