@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
-import { INote } from '../../../App';
+import { v1 } from 'uuid';
+
 import DeleteIcon from '../../../assets/icons/DeleteIcon';
 import EditIcon from '../../../assets/icons/EditIcon';
+import { INote } from '../../App/App';
 import AddNote from '../AddNote';
 import IconButton from '../IconButton';
 import Modal from '../Modal';
@@ -37,12 +39,28 @@ const NoteCard = ({
           <DeleteIcon />
         </IconButton>
       </div>
-      <div className={styles.note}>{note}</div>
+      <div className={styles.note}>
+        {note.split(' ').map(word => {
+          if (word.split('')[0] === '#') {
+            return (
+              <span key={v1()} className={styles.tag}>
+                {word}
+              </span>
+            );
+          }
+
+          return (
+            <span key={v1()} className={styles.text}>
+              {word}
+            </span>
+          );
+        })}
+      </div>
       <div>
         {tags.map(tag => (
           <button
             type="button"
-            key={id}
+            key={v1()}
             onClick={() => setTagFilter(tag)}
             className={styles.tagButton}
           >

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { v1 } from 'uuid';
+
 import { findTags } from '../../../helpers/findTags';
 
 import styles from './styles.module.scss';
@@ -55,12 +57,11 @@ const AddNote = ({
       />
       <div>
         {tags.map(tag => (
-          <span key={tag} className={styles.tag}>
+          <span key={v1()} className={styles.tag}>
             {tag}
           </span>
         ))}
       </div>
-
       <button
         type="submit"
         className={styles.button}

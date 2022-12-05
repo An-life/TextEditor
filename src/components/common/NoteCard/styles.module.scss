@@ -1,43 +1,59 @@
 @import './../../../styles/mixins.scss';
 @import './../../../styles/colors.scss';
 
-.container{
-    @include flex(center,center, column);
-    min-width: 200px;
-    max-width: 20%;
-    background-color: $color-light-pink;
-    border-radius: 5px;
+.container {
+  @include flex(flex-start, flex-start, column);
+  min-height: 200px;
+  min-width: 200px;
+  max-width: 25%;
+  background-color: $color-light-pink;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 5px;
+  hyphens: auto;
+
+  @media (max-width: 900px) {
+    max-width: 50%;
+    margin: 10px auto;
+  }
+
+  @media (max-width: 600px) {
+    max-width: 80%;
+  }
+
+  .buttonsWrapper {
+    width: 100%;
+    @include flex(flex-end, center, row);
+  }
+
+  .note {
+    width: 90%;
+    @include flex(flex-start, flex-start, row);
     margin: 10px;
-    padding: 5px;
+    color: $color-dark-orange;
+    font-weight: 600;
+    hyphens: auto;
+  }
 
-    @media (max-width: 900px){
-        max-width: 50%;
-        margin: 10px auto;
+  .tag {
+    color: $color-orange;
+    padding: 0 5px;
+    hyphens: auto;
+  }
+
+  .text {
+    padding: 0 5px;
+    hyphens: auto;
+  }
+
+  .tagButton {
+    background: none;
+    border: none;
+    color: $color-dark-orange;
+
+    &:hover {
+      cursor: pointer;
+      color: $color-orange;
     }
-
-    @media (max-width: 600px){
-        max-width: 80%;
-    }
-
-    .buttonsWrapper{
-        width: 100%;
-        @include flex(flex-end,center, row);
-    }
-
-    .note{
-        margin: 10px;
-        color: $color-dark-orange;
-        font-weight: 600;
-    }
-
-    .tagButton{
-        background: none;
-        border: none;
-        color: $color-dark-orange;
-
-        &:hover{
-            cursor: pointer;
-            color: $color-orange;
-        }
-    }
+  }
 }

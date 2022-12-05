@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 import { v1 } from 'uuid';
 
+import AddIcon from '../../assets/icons/AddIcon';
+import AddNote from '../common/AddNote';
+import IconButton from '../common/IconButton';
+import Modal from '../common/Modal';
+import NoteCard from '../common/NoteCard';
+
 import styles from './App.module.scss';
-import AddIcon from './assets/icons/AddIcon';
-import AddNote from './components/common/AddNote';
-import IconButton from './components/common/IconButton';
-import Modal from './components/common/Modal';
-import NoteCard from './components/common/NoteCard';
 
 export interface INote {
   id: string;
