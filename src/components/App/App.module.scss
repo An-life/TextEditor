@@ -1,5 +1,5 @@
-@import './styles/colors.scss';
-@import './styles/mixins.scss';
+@import './../../styles/colors.scss';
+@import './../../styles/mixins.scss';
 
 .wrapper {
   position: relative;
@@ -10,7 +10,7 @@
     margin: 0 auto;
 
     .notes {
-      @include flex(flex-start, center, row);
+      @include flex(flex-start, flex-start, row);
       gap: 5px;
     }
   }

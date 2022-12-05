@@ -39,6 +39,7 @@ const NoteCard = ({
           <DeleteIcon />
         </IconButton>
       </div>
+      <h3>Note:</h3>
       <div className={styles.note}>
         {note.split(' ').map(word => {
           if (word.split('')[0] === '#') {
@@ -56,6 +57,7 @@ const NoteCard = ({
           );
         })}
       </div>
+      {tags.length !== 0 && <h3>Tags:</h3>}
       <div>
         {tags.map(tag => (
           <button

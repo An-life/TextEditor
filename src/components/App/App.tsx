@@ -17,12 +17,21 @@ export interface INote {
 }
 
 const App = (): React.ReactElement => {
+  const savedNotes = localStorage.getItem('notes');
+
+  let initialNotes: INote[] = [];
+
+  if (savedNotes) {
+    initialNotes = JSON.parse(savedNotes);
+  }
+
   const [modalIsOpened, setModalIsOpened] = useState(false);
-  const [notes, setNotes] = useState<INote[]>([]);
+  const [notes, setNotes] = useState(initialNotes);
   const [tagFilter, setTagFilter] = useState<string>('all');
   const [filteredNotes, setFilteredNotes] = useState<INote[]>(notes);
 
   useEffect(() => {
+    localStorage.setItem('notes', JSON.stringify(notes));
     if (tagFilter === 'all') {
       setFilteredNotes(notes);
     } else {
